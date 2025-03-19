@@ -9,7 +9,7 @@ from airflow.operators.python import PythonOperator    # Runs custom Python func
 import requests    # Used to make HTTP requests (e.g., calling an API to fetch weather data) along with PythonOperator in place of SimpleHttpOperator
 import pandas as pd    # Used for data manipulation and transformation, such as converting API responses into DataFrames.
 import io    # Used for in-memory file operations, such as handling CSV/JSON data as file-like objects.
-from airflow.models import Variable    # For retrieving configuratio variables dynamically
+from airflow.models import Variable    # For retrieving configuratio variables dynamically.
 from google.cloud import bigquery    # To copy data from AWS S3 to BigQuery without involving Google Cloud Storage (GCS), BigQueryHook, and AWS Connection.
 from google.oauth2 import service_account    # To handle authentication to BigQuery without setting up Google Auth
 import psycopg2    # Provides a connection to PostgreSQL databases, allowing Python scripts to interact with the database.
