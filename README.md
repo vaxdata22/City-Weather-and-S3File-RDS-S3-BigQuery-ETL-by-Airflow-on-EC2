@@ -43,7 +43,7 @@ Having satisfied all the 8 requirements in the preceding section, I proceeded to
 * S3 bucket name: us-city-weather-data-etl-pipeline-data-lake
 * Block Public Access: Keep all options enabled
 * Disable bucket key
-* Organized S3 bucket properly, and upload the “us_cities.csv” file to the “raw_data/” directory in the bucket. See the file [here](code/us_cities.csv):
+* Organized S3 bucket properly, and upload the “us_cities.csv” file to the “raw_data/” directory in the bucket. See the file [here](codes/us_cities.csv):
 
 ```
 us-city-weather-data-etl-pipeline-data-lake/
@@ -345,7 +345,7 @@ Building on experience and knowledge from my previous ETL project ([see it here]
 ![img14](screenshots/img14.png)
 <br>
 
-In between, I would test run the DAG via the web browser (and this requires stopping and restarting Airflow via the CLI). All aspects of the orchestration were tested, including the DAG run failure and retry. See the finished Airflow orchestration DAG Python file [here](code/weather_etl_pipeline.py).
+In between, I would test run the DAG via the web browser (and this requires stopping and restarting Airflow via the CLI). All aspects of the orchestration were tested, including the DAG run failure and retry. See the finished Airflow orchestration DAG Python file [here](codes/weather_etl_pipeline.py).
 
 ![img15](screenshots/img15.png)
 <br>
@@ -363,7 +363,7 @@ Upon the success of the orchestration, I verified the ETL process through the fo
 ![img17](screenshots/img17.png)
 <br>
 
-#### 2) Queried the RDS Postgres DB tables using a Python Notebook environment (Google Colab). Find the IPYNB file here. By the way, I ran into issues with using pgAdmin for this. It was observed that the two tables that were empty now contained data.
+#### 2) Queried the RDS Postgres DB tables using a Python Notebook environment (Google Colab). Find the IPYNB file [here](/codes/RDS_Postgres_testing.ipynb). By the way, I ran into issues with using pgAdmin for this. It was observed that the two tables that were empty now contained data.
 
 ![img18](screenshots/img18.png)
 <br>
