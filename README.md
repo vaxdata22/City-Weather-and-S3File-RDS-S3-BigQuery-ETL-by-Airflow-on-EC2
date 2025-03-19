@@ -1,15 +1,15 @@
 # OpenWeatherMap API to RDS Postgres database table in parallel with CSV file in S3 bucket load to database table; then join and save to S3 and copy to BigQuery ETL Pipeline by Airflow on EC2
-This is my third industry-level ETL project. This data pipeline orchestration uses Apache Airflow on AWS EC2. 
+This is my third AWS Data Engineering ETL project. This data pipeline orchestration used Apache Airflow on AWS EC2. 
 
 It demonstrates how to build an ETL data pipeline that would perform data extraction to a database in parallel to a loading process into the same database, join the tables, copy joined data to S3 and finally copy the S3 file to BigQuery DW.
 <br><br>
 
 ## GENERAL OVERVIEW OF PROJECT
-This basic BI Engineering project which I did demonstrates the process of how to extract the current weather information for Houston city from the Open Weather Map (OWM) API (https://openweathermap.org/), used python to perform data transformation, loaded the resulting data into a prepared table in an RDS Postgres database, and while this is happening, an existing CSV file in an S3 bucket is being copied into another table in the same Postgres database. 
+This basic BI Engineering project which I did demonstrates the process of how to extract the current weather information for Houston city from the Open Weather Map (OWM) API (https://openweathermap.org/), used Python to perform data transformation, loaded the resulting data into a prepared table in an RDS Postgres database, and while this is happening, an existing CSV file in an S3 bucket is being copied into another table in the same Postgres database. 
 
 The orchestration goes on to perform a SQL join on these two tables in RDS then the resulting data is dumped as CSV file into the S3 bucket. 
 Finally, the data from this new CSV file is copied into a prepared BigQuery data warehouse. 
-This ETL pipeline (work flow) was orchestrated and scheduled using Apache airflow running in an AWS EC2 instance. 
+This ETL pipeline (workflow) was orchestrated and scheduled using Apache airflow running in an AWS EC2 instance. 
 
 Apache Airflow is an open-source platform used for orchestrating and scheduling workflows of tasks and data pipelines.
 
@@ -384,29 +384,31 @@ Upon the success of the orchestration, I verified the ETL process through the fo
 Since this was for demonstration purposes, upon the success of the project the following were done as teardown: 
 
 * Deactivated my OpenWeatherMap API key, stopped my AWS EC2 instance, and cleared the S3 bucket that was used in the project
-* Deleted the RDS Postgres DB and Shutdown the BigQuery project. Deleted the IAM role of the EC2 as well.
+* Deleted the RDS Postgres DB and shutdown the BigQuery project. Deleted the IAM role of the EC2 as well.
 <br><br>
 
 ## CHALLENGES AND FINAL THOUGHTS:
-Along the line, I faced issues arising from a failed import of PostgresOperator function from the airflow.providers.postgres.operators.postgres library as well as the PostgresHook function from the airflow.providers.postgres.hooks.postgres library. 
-This was because there was a problem with installation of the apache-airflow-providers-postgres package. 
-This problem prevented me from using the PostgresOperator and PostgresHook functions to handle the RDS database aspect in my DAG orchestration. 
-I had to use PythonOperator function alongside the psycopg2 module in creating a custom python function to handle this.
+Along the line, I faced issues arising from a failed import of `PostgresOperator` function from the `airflow.providers.postgres.operators.postgres` library as well as the `PostgresHook` function from the `airflow.providers.postgres.hooks.postgres` library. 
+This was because there was a problem with installation of the `apache-airflow-providers-postgres` package. 
+This problem prevented me from using the `PostgresOperator` and `PostgresHook` functions to handle the RDS database aspect in my DAG orchestration. 
+I had to use `PythonOperator` function alongside the `psycopg2` module in creating a custom Python function to handle this.
 
-Again, I faced issues arising from a failed import of SimpleHttpOperator function from the airflow.providers.http.operators.http library. 
-This was similarly because there was a problem with the installation of the apache-airflow-providers-http package. 
-This problem apparently did not affect the integrity of the airflow.providers.http.sensors.http library (HttpSensor) which is a part of the package. 
-However this problem prevented me from using the SimpleHttpOperator function to handle the data extraction phase in my DAG orchestration. 
-I had to use PythonOperator function alongside the requests module in creating a custom python function to handle this.
+Again, I faced issues arising from a failed import of `SimpleHttpOperator` function from the `airflow.providers.http.operators.http` library. 
+This was similarly because there was a problem with the installation of the `apache-airflow-providers-http package`. 
+This problem apparently did not affect the integrity of the `airflow.providers.http.sensors.http` library (`HttpSensor`) which is a part of the package. 
+However this problem prevented me from using the `SimpleHttpOperator` function to handle the data extraction phase in my DAG orchestration. 
+I had to use `PythonOperator` function alongside the `requests` module in creating a custom Python function to handle this.
 
-Once more, I faced issues arising from a failed import of S3Hook function from the airflow.providers.amazon.aws.hooks.s3 library. 
-This was because there was a problem with installation of the apache-airflow-providers-amazon package. 
-This problem prevented me from using the S3Hook function to handle the S3 bucket aspect in my DAG orchestration. 
-I had to use PythonOperator function alongside the s3fs module in creating a custom python function to handle this. 
+I had this same set of problems in my very first AWS Cloud ETL project. See the ending part of the report on that project [here](https://github.com/vaxdata22/Lagos-Weather-S3-Snowflake-Email-notif-ETL-by-Airflow-on-EC2/blob/main/README.md).
 
-Finally, BigQueryHook function (from airflow.providers.google.cloud.hooks.bigquery) also did not work for my project but kept throwing series of errors that would complicate the project if I wanted to resolve them. 
-I can’t say if the installation of apache-airflow-providers-google was properly done or not. 
-So I simply used the bigquery function (from google.cloud) alongside the service_account function (from google.oauth2) to handle the BigQuery aspect of the orchestration.
+Once more, I faced issues arising from a failed import of `S3Hook` function from the `airflow.providers.amazon.aws.hooks.s3` library. 
+This was because there was a problem with installation of the `apache-airflow-providers-amazon` package. 
+This problem prevented me from using the `S3Hook` function to handle the S3 bucket aspect in my DAG orchestration. 
+I had to use `PythonOperator` function alongside the `s3fs` module in creating a custom Python function to handle this. 
+
+Finally, `BigQueryHook` function (from the `airflow.providers.google.cloud.hooks.bigquery` library) also did not work for my project but kept throwing series of errors that would complicate the project if I wanted to resolve them. 
+I couldn’t say if the installation of the `apache-airflow-providers-google` package was properly done or not. 
+So I simply used the `bigquery` function (from the `google.cloud` library) alongside the `service_account` function (from the `google.oauth2`) to handle the BigQuery aspect of the orchestration.
 
 For these four problems, I intend to do more findings as to the reason why they occurred and how to better resolve them. 
 As a result of these problems, I only needed to create just one Airflow connection (the OpenWeatherMap API HTTP connection). 
@@ -415,6 +417,6 @@ Originally, I intended to in addition create and make use of AWS connection, RDS
 I also understand that the DAG orchestration might not meet certain development best practices, such as not making use of Airflow providers for BigQuery, RDS Postgres, and AWS, as well as Airflow connections in the DAG file. 
 In future projects, these grey areas would be addressed properly as I continue to learn more in my BI Engineering journey.
 
-From project ideation, planning, development, testing, and deployment took me eight (4) working days because as a self-taught BI Developer, this was my first AWS Cloud Data Engineering project that is based on Airflow, EC2, S3, RDS, and BigQuery. The project could have taken me two or three days of not that I spent a good deal of time fiddling with the non-cooperative Airflow provider functions.
+From project ideation, planning, development, testing, and deployment took me eight (4) working days because as a self-taught BI Developer, this was my first AWS Cloud Data Engineering project that is based on Airflow, EC2, S3, RDS, and BigQuery. The project could have taken me two or three days of not that I spent a good deal of time fiddling with the seemingly non-cooperative Airflow provider functions and libraries.
 
 #### Thank you for going through this project with me!
