@@ -220,6 +220,10 @@ psql -h us-city-weather-data-etl-pipeline-database.cro6gemmugwm.eu-north-1.rds.a
 
 #### c) List databases
 ```
+\list
+```
+or
+```
 SELECT datname FROM pg_database;
 ```
 
