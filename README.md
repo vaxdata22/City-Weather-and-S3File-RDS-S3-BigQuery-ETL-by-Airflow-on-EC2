@@ -1,5 +1,5 @@
 # OpenWeatherMap API to RDS Postgres database table in parallel with CSV file in S3 bucket load to database table; then join and save to S3 and copy to BigQuery ETL Pipeline by Airflow on EC2
-This is my third AWS Data Engineering ETL project. This data pipeline orchestration used Apache Airflow on AWS EC2. 
+This is my third AWS Data Engineering ETL project. The project was inspired by Dr Yemi Olanipekun. This data pipeline orchestration used Apache Airflow on AWS EC2. 
 
 It demonstrates how to build an ETL data pipeline that would perform data extraction to a database in parallel to a loading process into the same database, join the tables, copy joined data to S3 and finally copy the S3 file to BigQuery DW.
 <br><br>
@@ -34,7 +34,7 @@ The following account of the project development process is not enough to enable
 For instance, there is no detailing of the steps involved in creating accounts with Google Cloud, OpenWeatherMap, and Amazon AWS. 
 There is also no detailing of the steps in creating S3 bucket, setting up RDS Postgres database instance, spinning up the AWS EC2 instance from scratch and preparing it to work with Airflow (Firewall settings for HTTP/HTTPS/SSH and attaching the IAM Role), connecting VSCode to the EC2 instance, as well as accessing Airflow via web browser.
 
-However an experienced and capable Data Engineer should be familiar with how these are set up, but the reader who is not knowledgeable in these areas is hereby encouraged to do their own research, enrol in a Data Engineering bootcamp or learn from data engineering tutorials available online on some websites or some great channels on YouTube, or reach out to me for clarification. With that out of the way, let’s go over the key steps in this project.
+However a fellow who is knowledgeable in Data Engineering skills should be familiar with how these are set up, but the reader who is not knowledgeable in these areas is hereby encouraged to do their own research, enrol in a Data Engineering bootcamp or learn from data engineering tutorials available online on some websites or some great channels on YouTube (such as Tuple Spectra), or reach out to me for clarification. With that out of the way, let’s go over the key steps in this project.
 
 Having satisfied all the 8 requirements in the preceding section, I proceeded to carry out the following setup:
 <br><br>
@@ -417,6 +417,7 @@ Originally, I intended to in addition create and make use of AWS connection, RDS
 I also understand that the DAG orchestration might not meet certain development best practices, such as not making use of Airflow providers for BigQuery, RDS Postgres, and AWS, as well as Airflow connections in the DAG file. 
 In future projects, these grey areas would be addressed properly as I continue to learn more in my BI Engineering journey.
 
-From project ideation, planning, development, testing, and deployment took me eight (4) working days because as a self-taught BI Developer, this was my first AWS Cloud Data Engineering project that is based on Airflow, EC2, S3, RDS, and BigQuery. The project could have taken me two or three days of not that I spent a good deal of time fiddling with the seemingly non-cooperative Airflow provider functions and libraries.
+From project ideation, planning, development, testing, and deployment took me four (4) working days because as a self-taught BI Developer, this was my first AWS Cloud Data Engineering project that is based on Airflow, EC2, S3, RDS, and BigQuery. The project could have taken me two or three days of not that I spent a good deal of time fiddling with the seemingly non-cooperative Airflow provider functions and libraries.
+More importantly, I am thankful to Dr. Opeyemi ‘Yemi’ Olanipekun for inspiring me to carry out this project. His passionate way of teaching and guidance is second to none.
 
 #### Thank you for going through this project with me!
