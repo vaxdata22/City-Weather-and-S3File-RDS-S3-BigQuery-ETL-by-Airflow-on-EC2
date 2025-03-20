@@ -1,5 +1,5 @@
 # OpenWeatherMap API to RDS Postgres database table in parallel with CSV file in S3 bucket load to database table; then join and save to S3 and copy to BigQuery ETL Pipeline by Airflow on EC2
-This is my third AWS Data Engineering ETL project. The project was inspired by Dr Yemi Olanipekun, whose tutorials benefitted me a lot. This data pipeline orchestration used Apache Airflow on AWS EC2. 
+This is my third AWS Data Engineering ETL project. The project was inspired by the tutorials of Dr Yemi Olanipekun. This data pipeline orchestration used Apache Airflow on AWS EC2. 
 
 It demonstrates how to build an ETL data pipeline that would perform data extraction to a database in parallel to a loading process into the same database, join the tables, copy joined data to S3 and finally copy the S3 file to BigQuery DW.
 <br><br>
